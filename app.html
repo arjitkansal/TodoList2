@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <title>To-do List using React</title>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link href = "./public/assets/styles.css" rel="stylesheet" type="text/css" />
+
+  </head>
+  <body>
+
+
+        <img src = "./public/assets/logoInshorts.png"
+          width="180"
+          height="250"
+          style = "display: block; margin-left: auto; margin-right: auto;"
+        />
+        <br /> <br />
+        <h1 style="color:black; text-align:center">My Todo List</h1>
+        <br /> <br />
+    
+
+    <div id="todo-table"></div>
+
+    <script type="text/babel">
+
+      class TodoTable extends React.Component {
+        state = {
+          tempTodo: '',
+          todos:  [
+                    'Todo 1',
+                    'Todo 2',
+                    'Todo 3',
+                    'Todo 4',
+                    'Todo 5'
+                  ]
+        }
+        handleSubmit = (e) => {
+          this.state.todos.push(this.state.tempTodo)
+          this.setState({
+            tempTodo: ''
+          })
+          e.preventDefault();
+        }
+        handleChange = (e) => {
+          this.setState({
+            tempTodo: e.target.value
+          })
+        }
+        handleClick = (e) => {
+          console.log(e)
+        }
+        render(){
+          return(
+            <div className="ListOfTodos">
+              <form onSubmit = {this.handleSubmit}>
+                <input type="text" name="item" placeholder="Add new item..." onChange = {this.handleChange} required />
+                <button type="submit">Add Item</button>
+              </form>
+              <ul onClick={this.handleClick}>
+                {this.state.todos.map((value,index) => {
+                  return <li key = {index}>{value}</li>
+                })}
+              </ul>
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(<TodoTable />, document.getElementById('todo-table'))
+    </script>
+
+  </body>
+</html>
